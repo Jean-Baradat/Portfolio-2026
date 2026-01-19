@@ -64,7 +64,22 @@ export default [
 			],
 
 			// React Refresh
-			"react-refresh/only-export-components": "warn",
+			"react-refresh/only-export-components": [
+				"warn",
+				{
+					allowExportNames: [
+						"meta",
+						"loader",
+						"action",
+						"links",
+						"handle",
+						"shouldRevalidate",
+						"ErrorBoundary",
+						"HydrateFallback",
+						"headers",
+					],
+				},
+			],
 
 			// Import rules
 			"no-restricted-imports": [
