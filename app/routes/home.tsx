@@ -1,3 +1,5 @@
+import { ComponentExample } from "@/components/component-example"
+
 export function meta() {
 	return [
 		{ title: "Portfolio" },
@@ -6,11 +8,7 @@ export function meta() {
 }
 
 const Home = () => {
-	return (
-		<main>
-			<h1>Portfolio</h1>
-		</main>
-	)
+	return <ComponentExample />
 }
 
 export default Home
