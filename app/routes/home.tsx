@@ -1,14 +1,16 @@
-import { Welcome } from "@/welcome/welcome"
-
 export function meta() {
 	return [
-		{ title: "New React Router App" },
-		{ name: "description", content: "Welcome to React Router!" },
+		{ title: "Portfolio" },
+		{ name: "description", content: "Mon portfolio" },
 	]
 }
 
 const Home = () => {
-	return <Welcome />
+	return (
+		<main>
+			<h1>Portfolio</h1>
+		</main>
+	)
 }
 
 export default Home
