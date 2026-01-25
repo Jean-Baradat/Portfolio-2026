@@ -6,12 +6,14 @@ import {
 	Scripts,
 	ScrollRestoration,
 } from "react-router"
-
 import type { Route } from "./+types/root"
 import "./app.css"
 
 export const links: Route.LinksFunction = () => [
-	{ rel: "preconnect", href: "https://fonts.googleapis.com" },
+	{
+		rel: "preconnect",
+		href: "https://fonts.googleapis.com",
+	},
 	{
 		rel: "preconnect",
 		href: "https://fonts.gstatic.com",
