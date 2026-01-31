@@ -1,4 +1,12 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
+
+import { AiPersona } from "@/components/ui/ai-persona"
+import {
+	Cursor,
+	CursorFollow,
+	CursorProvider,
+} from "@/components/animate-ui/components/animate/cursor"
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
 
 export function meta() {
 	return [
@@ -10,12 +18,11 @@ export function meta() {
 const Home = () => {
 	const [isHovered, setIsHovered] = useState(false)
 
-	useEffect(() => {
-		import("hover-tilt/web-component")
-	}, [])
-
 	return (
 		<main className="relative flex h-screen flex-col overflow-hidden">
+			<div className="flex justify-end p-5">
+				<AnimatedThemeToggler />
+			</div>
 			<div
 				className={`glow-background pointer-events-none absolute inset-0 transition-opacity duration-500 ease-out ${
 					isHovered ? "opacity-100" : "opacity-0"
@@ -75,26 +82,22 @@ const Home = () => {
 			</div>
 
 			<section className="relative z-10 flex h-full grow basis-2/3 items-center justify-center">
-				<div
-					onMouseEnter={() => setIsHovered(true)}
-					onMouseLeave={() => setIsHovered(false)}
-				>
-					<hover-tilt
-						tilt-factor="1.5"
-						scale-factor="1.1"
-						shadow
-						glare-intensity="0.4"
-						blend-mode="multiply"
-						glare-mask="url(https://cdn.jeanbaradat.fr/portfolio-assets/vmaxbg.jpg)"
-						glare-mask-mode="luminance"
-						className="logo-holo rounded-full"
+				<div className="rounded-full">
+					<div
+						className="rounded-full [clip-path:circle(50%)]"
+						onMouseEnter={() => setIsHovered(true)}
+						onMouseLeave={() => setIsHovered(false)}
 					>
-						<img
-							className="h-auto w-50 rounded-full"
-							src="https://cdn.jeanbaradat.fr/portfolio-assets/logo-jean.svg"
-							alt="Logo Jean"
-						/>
-					</hover-tilt>
+						<AiPersona />
+					</div>
+					<CursorProvider>
+						<Cursor />
+						<CursorFollow>
+							<span className="text-sm font-medium whitespace-nowrap">
+								Hi, I&apos;m Jean !
+							</span>
+						</CursorFollow>
+					</CursorProvider>
 				</div>
 			</section>
 			<section className="relative z-10 flex h-full grow basis-1/3 items-center justify-center">

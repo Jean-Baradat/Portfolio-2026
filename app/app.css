@@ -30,16 +30,33 @@
 		background-size: 300% 300%;
 		background-position: var(--gradient-x) var(--gradient-y);
 	}
+
 	.logo-holo::part(tilt)::after {
 		content: "";
 		position: absolute;
 		inset: 0;
 		pointer-events: none;
 		border-radius: inherit;
-		background-image: var(--hover-tilt-default-gradient);
-		mix-blend-mode: hard-light;
-		opacity: calc(var(--hover-tilt-opacity, 0) - 0.75);
-		will-change: opacity, background-image;
+		background: radial-gradient(
+			circle at calc(var(--hover-tilt-x, 0.5) * 100%)
+				calc(var(--hover-tilt-y, 0.5) * 100%),
+			rgba(255, 255, 255, 0.8) 0%,
+			rgba(255, 255, 255, 0.3) 20%,
+			transparent 50%
+		);
+		mix-blend-mode: overlay;
+		opacity: var(--hover-tilt-opacity, 0);
+		will-change: opacity, background;
+	}
+
+	.dark .logo-holo::part(tilt)::after {
+		background: radial-gradient(
+			circle at calc(var(--hover-tilt-x, 0.5) * 100%)
+				calc(var(--hover-tilt-y, 0.5) * 100%),
+			rgba(255, 255, 255, 0.1) 0%,
+			rgba(255, 255, 255, 0.1) 20%,
+			transparent 50%
+		);
 	}
 
 	/* ===== Background Glow Effect ===== */
@@ -78,19 +95,19 @@
 	}
 
 	.glow-orb-lg {
-		@apply h-[32rem] w-[32rem];
+		@apply h-128 w-lg;
 	}
 
 	.glow-orb-md {
-		@apply h-[28rem] w-[28rem];
+		@apply h-112 w-md;
 	}
 
 	.glow-orb-sm {
-		@apply h-[24rem] w-[24rem] blur-[120px];
+		@apply h-96 w-[24rem] blur-[120px];
 	}
 
 	.glow-orb-xs {
-		@apply h-[22rem] w-[22rem] blur-[120px];
+		@apply h-88 w-88 blur-[120px];
 	}
 
 	/* Orb Colors - Strong variants */
@@ -490,4 +507,10 @@
 	html {
 		@apply font-sans;
 	}
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
 }

@@ -13,6 +13,10 @@ declare module "react" {
 				glare?: boolean | string
 				"glare-color"?: string
 				"glare-opacity"?: number | string
+				"glare-intensity"?: number | string
+				"glare-mask"?: string
+				"glare-mask-mode"?: string
+				"blend-mode"?: string
 				reverse?: boolean | string
 				perspective?: number | string
 				disabled?: boolean | string
