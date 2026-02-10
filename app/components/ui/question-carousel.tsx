@@ -1,14 +1,11 @@
+import { useMemo } from "react"
+import useEmblaCarousel from "embla-carousel-react"
 import AutoScroll from "embla-carousel-auto-scroll"
 
 import { cn } from "@/lib/utils"
-import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-} from "@/components/ui/carousel"
+import { Button } from "@/components/ui/button"
+import { Magnetic } from "@/components/ui/magnetic"
 import { ProgressiveBlur } from "@/components/ui/progressive-blur"
-import { QuestionTag } from "@/components/ui/question-tag"
-import { useMemo } from "react"
 
 interface QuestionCarouselProps extends Omit<
 	React.HTMLAttributes<HTMLDivElement>,
@@ -40,37 +37,56 @@ const QuestionCarousel = ({
 		[speed, direction],
 	)
 
+	const [emblaRef] = useEmblaCarousel(
+		{ loop: true, dragFree: true, align: "center" },
+		plugins,
+	)
+
 	const duplicatedQuestions = [...questions, ...questions, ...questions]
 
 	const getSpace = (index: number) => ((index * 7 + 3) % 20) + 1
 
 	return (
-		<>
-			<Carousel
-				opts={{
-					loop: true,
-					dragFree: true,
-					align: "start",
-				}}
-				plugins={plugins}
-				className={cn("w-full", className)}
-				{...props}
+		<div
+			className={cn("relative w-full", className)}
+			{...props}
+		>
+			<div
+				className="overflow-hidden"
+				ref={emblaRef}
 			>
-				<CarouselContent className="gap-2 p-5">
+				<div className="flex gap-2 p-5">
 					{duplicatedQuestions.map((question, index) => (
-						<CarouselItem
-							key={question}
-							className="basis-auto"
+						<div
+							key={`${question}-copy-${Math.floor(index / questions.length)}`}
+							className="min-w-0 shrink-0 grow-0 basis-auto"
 							style={{ marginRight: `${getSpace(index) * 4}px` }}
 						>
-							<QuestionTag
-								question={question}
-								onClick={() => onQuestionClick?.(question)}
-							/>
-						</CarouselItem>
+							<Magnetic
+								intensity={0.2}
+								springOptions={{ bounce: 0.3 }}
+								actionArea="global"
+								range={300}
+							>
+								<Button
+									type="button"
+									variant="outline"
+									onClick={() => onQuestionClick?.(question)}
+								>
+									<Magnetic
+										intensity={0.1}
+										springOptions={{ bounce: 0.3 }}
+										actionArea="global"
+										range={200}
+									>
+										<span>{question}</span>
+									</Magnetic>
+								</Button>
+							</Magnetic>
+						</div>
 					))}
-				</CarouselContent>
-			</Carousel>
+				</div>
+			</div>
 			<ProgressiveBlur
 				className="pointer-events-none absolute top-0 left-0 h-full w-50"
 				direction="left"
@@ -81,7 +97,7 @@ const QuestionCarousel = ({
 				direction="right"
 				blurIntensity={1}
 			/>
-		</>
+		</div>
 	)
 }
 
