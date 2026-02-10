@@ -8,6 +8,7 @@ import {
 } from "@/components/animate-ui/components/animate/cursor"
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
 import { QuestionCarousel } from "@/components/ui/question-carousel"
+import { ProgressiveBlur } from "@/components/ui/progressive-blur"
 
 const questionCategories = [
 	{
@@ -15,26 +16,39 @@ const questionCategories = [
 		questions: [
 			"Who are you?",
 			"Your skills?",
-			"Your background?",
 			"Your projects?",
-			"Favorite project?",
 			"Your tech stack?",
-			"Your experience?",
-			"Your achievements?",
+			"Available?",
+			"Your LinkedIn?",
 		],
+		speed: 0.9,
+		direction: "forward" as const,
 	},
 	{
 		id: "row2",
 		questions: [
-			"Where do you work?",
+			"Your background?",
 			"Freelance?",
-			"Team player?",
-			"Your clients?",
 			"Contact you?",
-			"Available?",
-			"Your LinkedIn?",
+			"Your achievements?",
 			"Your GitHub?",
+			"Your clients?",
 		],
+		speed: 0.8,
+		direction: "backward" as const,
+	},
+	{
+		id: "row3",
+		questions: [
+			"Favorite project?",
+			"Team player?",
+			"Where do you work?",
+			"Your experience?",
+			"Your projects?",
+			"Your skills?",
+		],
+		speed: 0.6,
+		direction: "forward" as const,
 	},
 ]
 
@@ -130,15 +144,26 @@ const Home = () => {
 					</CursorProvider>
 				</div>
 			</section>
-			<section className="relative z-10 flex h-full grow basis-1/3 flex-col items-center justify-center gap-15 overflow-hidden px-4">
-				{questionCategories.map((cat, index) => (
+			<section className="relative z-20 flex h-full grow basis-1/3 flex-col items-center justify-center gap-3 overflow-x-clip">
+				{questionCategories.map(cat => (
 					<QuestionCarousel
 						key={cat.id}
 						questions={cat.questions}
-						direction={index % 2 === 0 ? "forward" : "backward"}
+						direction={cat.direction}
+						speed={cat.speed}
 						onQuestionClick={question => console.log("Clicked:", question)}
 					/>
 				))}
+				<ProgressiveBlur
+					className="pointer-events-none absolute -top-1/6 left-0 h-[calc(100%+calc(1/6*100%))] w-100"
+					direction="left"
+					blurIntensity={1}
+				/>
+				<ProgressiveBlur
+					className="pointer-events-none absolute -top-1/6 right-0 h-[calc(100%+calc(1/6*100%))] w-100"
+					direction="right"
+					blurIntensity={1}
+				/>
 			</section>
 		</main>
 	)

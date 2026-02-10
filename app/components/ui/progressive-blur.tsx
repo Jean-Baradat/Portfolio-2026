@@ -16,13 +16,13 @@ export type ProgressiveBlurProps = {
 	blurIntensity?: number
 } & HTMLMotionProps<"div">
 
-export function ProgressiveBlur({
+export const ProgressiveBlur = ({
 	direction = "bottom",
 	blurLayers = 8,
 	className,
 	blurIntensity = 0.25,
 	...props
-}: ProgressiveBlurProps) {
+}: ProgressiveBlurProps) => {
 	const layers = Math.max(blurLayers, 2)
 	const segmentSize = 1 / (blurLayers + 1)
 
