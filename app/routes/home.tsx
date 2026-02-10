@@ -7,6 +7,36 @@ import {
 	CursorProvider,
 } from "@/components/animate-ui/components/animate/cursor"
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
+import { QuestionCarousel } from "@/components/ui/question-carousel"
+
+const questionCategories = [
+	{
+		id: "row1",
+		questions: [
+			"Who are you?",
+			"Your skills?",
+			"Your background?",
+			"Your projects?",
+			"Favorite project?",
+			"Your tech stack?",
+			"Your experience?",
+			"Your achievements?",
+		],
+	},
+	{
+		id: "row2",
+		questions: [
+			"Where do you work?",
+			"Freelance?",
+			"Team player?",
+			"Your clients?",
+			"Contact you?",
+			"Available?",
+			"Your LinkedIn?",
+			"Your GitHub?",
+		],
+	},
+]
 
 export function meta() {
 	return [
@@ -100,8 +130,15 @@ const Home = () => {
 					</CursorProvider>
 				</div>
 			</section>
-			<section className="relative z-10 flex h-full grow basis-1/3 items-center justify-center">
-				<p className="text-xl font-bold">Soon...</p>
+			<section className="relative z-10 flex h-full grow basis-1/3 flex-col items-center justify-center gap-15 overflow-hidden px-4">
+				{questionCategories.map((cat, index) => (
+					<QuestionCarousel
+						key={cat.id}
+						questions={cat.questions}
+						direction={index % 2 === 0 ? "forward" : "backward"}
+						onQuestionClick={question => console.log("Clicked:", question)}
+					/>
+				))}
 			</section>
 		</main>
 	)
