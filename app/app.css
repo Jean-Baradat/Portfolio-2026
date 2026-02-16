@@ -59,240 +59,85 @@
 		);
 	}
 
-	/* ===== Background Glow Effect ===== */
-	.glow-background {
-		background:
-			radial-gradient(
-				circle at 0% 0%,
-				var(--glow-glycine-alpha) 0%,
-				transparent 40%
+	/* ===== Screen Border Glow  ===== */
+	.screen-border-glow {
+		-webkit-mask-image:
+			linear-gradient(
+				to bottom,
+				black,
+				transparent 15px,
+				transparent calc(100% - 15px),
+				black
 			),
-			radial-gradient(
-				circle at 100% 0%,
-				var(--glow-cumulus-alpha) 0%,
-				transparent 40%
-			),
-			radial-gradient(
-				circle at 0% 100%,
-				var(--glow-emeraude-alpha) 0%,
-				transparent 40%
-			),
-			radial-gradient(
-				circle at 100% 100%,
-				var(--glow-tournesol-alpha) 0%,
-				transparent 40%
-			),
-			radial-gradient(
-				circle at 50% 50%,
-				var(--glow-ecume-alpha) 0%,
-				transparent 50%
+			linear-gradient(
+				to right,
+				black,
+				transparent 15px,
+				transparent calc(100% - 15px),
+				black
 			);
+		-webkit-mask-composite: source-over;
+		mask-image:
+			linear-gradient(
+				to bottom,
+				black,
+				transparent 15px,
+				transparent calc(100% - 15px),
+				black
+			),
+			linear-gradient(
+				to right,
+				black,
+				transparent 15px,
+				transparent calc(100% - 15px),
+				black
+			);
+		mask-composite: add;
 	}
 
-	/* ===== Glow Orbs ===== */
-	.glow-orb {
-		@apply absolute rounded-full blur-[140px];
-	}
-
-	.glow-orb-lg {
-		@apply h-128 w-lg;
-	}
-
-	.glow-orb-md {
-		@apply h-112 w-md;
-	}
-
-	.glow-orb-sm {
-		@apply h-96 w-[24rem] blur-[120px];
-	}
-
-	.glow-orb-xs {
-		@apply h-88 w-88 blur-[120px];
-	}
-
-	/* Orb Colors - Strong variants */
-	.glow-orb--glycine {
-		background: var(--glow-glycine-strong);
-	}
-
-	.glow-orb--cumulus {
-		background: var(--glow-cumulus-strong);
-	}
-
-	.glow-orb--emeraude {
-		background: var(--glow-emeraude-strong);
-	}
-
-	.glow-orb--tournesol {
-		background: var(--glow-tournesol-strong);
-	}
-
-	.glow-orb--ecume {
-		background: var(--glow-ecume-alpha);
-	}
-
-	/* Orb Colors - Light variants */
-	.glow-orb--glycine-light {
-		background: var(--glow-glycine-alpha);
-	}
-
-	.glow-orb--cumulus-light {
-		background: var(--glow-cumulus-alpha);
-	}
-
-	.glow-orb--emeraude-light {
-		background: var(--glow-emeraude-alpha);
-	}
-
-	.glow-orb--tournesol-light {
-		background: var(--glow-tournesol-alpha);
-	}
-
-	/* Orb Positions */
-	.glow-orb-top-left {
-		top: -15%;
-		left: -15%;
-	}
-
-	.glow-orb-top-right {
-		top: -10%;
-		right: -10%;
-	}
-
-	.glow-orb-bottom-left {
-		bottom: -10%;
-		left: -10%;
-	}
-
-	.glow-orb-bottom-right {
-		bottom: -15%;
-		right: -15%;
-	}
-
-	.glow-orb-center-top {
-		top: 0%;
-		left: 50%;
-		transform: translateX(-50%);
-	}
-
-	.glow-orb-center-bottom {
-		bottom: 0%;
-		left: 50%;
-		transform: translateX(-50%);
-	}
-
-	.glow-orb-left-middle {
-		top: 50%;
-		left: -5%;
-		transform: translateY(-50%);
-	}
-
-	.glow-orb-right-middle {
-		top: 50%;
-		right: -5%;
-		transform: translateY(-50%);
-	}
-
-	/* ===== Float Animations ===== */
-	.animate-float1 {
-		animation: float1 4s ease-in-out infinite;
-	}
-
-	.animate-float1-slow {
-		animation: float1 5.5s ease-in-out infinite;
-	}
-
-	.animate-float2 {
-		animation: float2 5s ease-in-out infinite;
-	}
-
-	.animate-float2-fast {
-		animation: float2 4.5s ease-in-out infinite;
-	}
-
-	.animate-float2-slow {
-		animation: float2 5.5s ease-in-out infinite;
-	}
-
-	.animate-float3 {
-		animation: float3 4s ease-in-out infinite;
-	}
-
-	.animate-float3-slow {
-		animation: float3 4.8s ease-in-out infinite;
-	}
-
-	.animate-float4 {
-		animation: float4 5s ease-in-out infinite;
-	}
-
-	.animate-float4-fast {
-		animation: float4 4.2s ease-in-out infinite;
+	.screen-border-glow__gradient {
+		position: absolute;
+		inset: 0;
+		background: conic-gradient(
+			from var(--border-angle) in oklch,
+			var(--border-glow-1) 0deg,
+			var(--border-glow-2) 90deg,
+			var(--border-glow-3) 180deg,
+			var(--border-glow-4) 270deg,
+			var(--border-glow-1) 360deg
+		);
+		animation: border-glow-rotate 5s linear infinite;
+		filter: blur(25px);
 	}
 }
 
-/* ===== Keyframes for Glow Animations ===== */
-@keyframes float1 {
-	0%,
-	100% {
-		transform: translate(0, 0) scale(1);
-	}
-	50% {
-		transform: translate(50px, -50px) scale(1.25);
-	}
+@property --border-angle {
+	syntax: "<angle>";
+	initial-value: 0deg;
+	inherits: false;
 }
 
-@keyframes float2 {
-	0%,
-	100% {
-		transform: translate(0, 0) scale(1);
+@keyframes border-glow-rotate {
+	from {
+		--border-angle: 0deg;
 	}
-	50% {
-		transform: translate(-45px, 45px) scale(1.2);
-	}
-}
-
-@keyframes float3 {
-	0%,
-	100% {
-		transform: translateX(-50%) scale(1);
-	}
-	50% {
-		transform: translateX(-50%) translateY(-40px) scale(1.2);
-	}
-}
-
-@keyframes float4 {
-	0%,
-	100% {
-		transform: translateY(-50%) scale(1);
-	}
-	50% {
-		transform: translateY(-50%) translateX(40px) scale(1.18);
+	to {
+		--border-angle: 360deg;
 	}
 }
 
 :root {
 	/* ===== Glow Color Palette (from DSFR complementary colors) ===== */
-	/* Glycine - Violet */
 	--glow-glycine: #a558a0;
-	--glow-glycine-alpha: rgba(165, 88, 160, 0.18);
-	--glow-glycine-strong: rgba(165, 88, 160, 0.25);
-	/* Cumulus - Blue */
 	--glow-cumulus: #417dc4;
-	--glow-cumulus-alpha: rgba(65, 125, 196, 0.18);
-	--glow-cumulus-strong: rgba(65, 125, 196, 0.25);
-	/* Écume - Dark Blue */
-	--glow-ecume: #465f9d;
-	--glow-ecume-alpha: rgba(70, 95, 157, 0.12);
-	/* Émeraude - Green */
 	--glow-emeraude: #00a95f;
-	--glow-emeraude-alpha: rgba(0, 169, 95, 0.18);
-	--glow-emeraude-strong: rgba(0, 169, 95, 0.22);
-	/* Tournesol - Yellow/Gold */
 	--glow-tournesol: #c8aa39;
-	--glow-tournesol-alpha: rgba(200, 170, 57, 0.18);
-	--glow-tournesol-strong: rgba(200, 170, 57, 0.25);
+
+	/* ===== Border Glow - Primary variants (hue 264) ===== */
+	--border-glow-1: oklch(0.7 0.27 264);
+	--border-glow-2: oklch(0.45 0.3 264);
+	--border-glow-3: oklch(0.35 0.27 264);
+	--border-glow-4: oklch(0.6 0.25 264);
 
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.2968 0.2057 264.052);
@@ -363,19 +208,15 @@
 .dark {
 	/* ===== Glow Color Palette (Dark mode - slightly more vibrant) ===== */
 	--glow-glycine: #b86ab3;
-	--glow-glycine-alpha: rgba(184, 106, 179, 0.22);
-	--glow-glycine-strong: rgba(184, 106, 179, 0.3);
 	--glow-cumulus: #5a91d4;
-	--glow-cumulus-alpha: rgba(90, 145, 212, 0.22);
-	--glow-cumulus-strong: rgba(90, 145, 212, 0.3);
-	--glow-ecume: #5a73b0;
-	--glow-ecume-alpha: rgba(90, 115, 176, 0.15);
 	--glow-emeraude: #1fbf73;
-	--glow-emeraude-alpha: rgba(31, 191, 115, 0.22);
-	--glow-emeraude-strong: rgba(31, 191, 115, 0.28);
 	--glow-tournesol: #d9bc4d;
-	--glow-tournesol-alpha: rgba(217, 188, 77, 0.22);
-	--glow-tournesol-strong: rgba(217, 188, 77, 0.3);
+
+	/* ===== Border Glow - Primary variants (lighter for dark bg) ===== */
+	--border-glow-1: oklch(0.82 0.23 264);
+	--border-glow-2: oklch(0.65 0.28 264);
+	--border-glow-3: oklch(0.5 0.26 264);
+	--border-glow-4: oklch(0.75 0.22 264);
 
 	--background: oklch(0.0984 0.0682 264.052);
 	--foreground: oklch(1 0 0);
